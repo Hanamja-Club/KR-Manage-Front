@@ -5,7 +5,7 @@
 
     <div id="idInput">
       <label for="userID">ID</label>
-      <input type="text" id="userId" name="userId" placeholder="ID를 입력하세요">
+      <input type="text" id="userID" name="userID" placeholder="ID를 입력하세요">
     </div>
     <div id="pwInput">
       <label for="userPW">패스워드</label>
@@ -16,8 +16,21 @@
   </article>
   </body>
 </template>
-<script setup>
+<script>
+import {krmanage} from "@/plugins/krmanage.js";
 
+export default {
+ name: 'KRA0101P01',
+ components: {},
+ setup() {
+
+   const { $api } = krmanage()
+
+   return {
+
+   }
+ }
+}
 </script>
 
 <style scoped></style>
