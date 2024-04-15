@@ -8,8 +8,8 @@ export default {
                 const modalDiv = document.createElement("div")
                 modalDiv.innerHTML = `<div class="modal">
                                         <div class="modal-content">
-                                            <h2>오류</h2>
-                                                <p>${val}</p>
+                                            <h2>${val.title}</h2>
+                                                <p>${val.content}</p>
                                             <div class="modal-close">
                                                 <p>확인</p>
                                             </div>

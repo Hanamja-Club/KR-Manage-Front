@@ -35,7 +35,10 @@ export default {
    const pageFunc = {
      loginAction : () => {
        if ($utils.isEmpty(userInf.value.userId) || $utils.isEmpty(userInf.value.userPw)) {
-         $ui.alert("아이디나 비밀번호를 입력하지 않았습니다.")
+         $ui.alert({
+           title : "입력 오류",
+           content : "아이디나 비밀번호가 비어있습니다."
+         })
        }
      },
    }
