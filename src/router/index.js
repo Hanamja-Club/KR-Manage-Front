@@ -1,5 +1,5 @@
 import {createRouter, createWebHistory} from "vue-router";
-import KRA0101P01 from "@/components/KRA/KRA0101P01.vue";
+import KRA0101P01 from "@/views/KRA/KRA0101P01.vue";
 
 const routes = [
     {
