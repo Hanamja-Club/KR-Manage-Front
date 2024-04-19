@@ -9,7 +9,7 @@
     </div>
     <div id="pwInput">
       <label for="userPW">패스워드</label>
-      <input type="text" id="userPW" name="userPW" placeholder="패스워드를 입력하세요" v-model="userInf.userPw" />
+      <input type="password" id="userPW" name="userPW" placeholder="패스워드를 입력하세요" v-model="userInf.userPw" />
     </div>
 
     <button id="loginButton" @click="pageFunc.loginAction()">로그인</button>
