@@ -6,6 +6,7 @@ export default {
             alert : val => {
                 // console.log("alert val : " + val)
                 const modalDiv = document.createElement("div")
+                modalDiv.className += 'modal_div'
                 modalDiv.innerHTML = `<div class="modal">
                                         <div class="modal-content">
                                             <h2>${val.title}</h2>
@@ -22,6 +23,7 @@ export default {
                 const modalCloseButton = document.querySelector(".modal-close");
                 modalCloseButton.addEventListener("click", function() {
                     document.querySelector(".modal").style.display = "none";
+                    document.querySelector(".modal_div").remove()
                 });
             }
         }

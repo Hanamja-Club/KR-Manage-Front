@@ -39,7 +39,23 @@ export default {
            title : "입력 오류",
            content : "아이디나 비밀번호가 비어있습니다."
          })
+         return false
        }
+
+       $api('api/member/login', {
+         memberId : userInf.value.userId,
+         memberPassword: userInf.value.userPw
+       }, 'post', res => {
+         console.log(res)
+         if (res.code === '001') {
+           $ui.alert({
+             title : "로그인 오류",
+             content : res.message
+           })
+         }
+       }, err => {
+         console.log(err)
+       })
      },
    }
 
