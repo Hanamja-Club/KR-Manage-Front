@@ -8,9 +8,9 @@
     <nav id="mobile-nav">
       <ul>
         <li><a href="#">KartRider Rush+ Management</a></li>
-        <li><a href="#" id="friendly-match">> 친선경기 횟수 조회</a></li>
-        <li><a href="#" id="member-management">> 회원 관리</a></li>
-        <li><a href="#" id="add-new-member">> 신규 팀원 추가</a></li>
+        <li><a @click="pageFunc.routerPage('/RaceNum')" id="friendly-match"> 친선경기 횟수 조회</a></li>
+        <li><a @click="pageFunc.routerPage('/manage')" id="member-management"> 회원 관리</a></li>
+        <li><a href="#" id="add-new-member"> 신규 팀원 추가</a></li>
         <li @click="pageFunc.menuControl()">
           <img id="menuClose" src="@/assets/img/menu_close.png"
                alt="this is menu close button. click to close the menu.">
@@ -39,14 +39,14 @@
       </thead>
 
       <tbody>
-      <tr>
-        <td></td>
-        <td></td>
+      <tr v-for="(itm, idx) in raceList" :key="idx">
+        <td>{{ itm.nickname }}</td>
+        <td>{{ itm.raceCount }}</td>
       </tr>
       </tbody>
 
     </table>
-    <button id="loadMore">더보기</button>
+    <button id="loadMore" @click="pageFunc.pagingList()" v-if="!isLast">더보기</button>
   </section>
   </body>
 </template>
@@ -65,19 +65,27 @@ export default {
 
     const selectPeriod = ref('daily')
 
+    const raceList = ref([])
+    const pageNumber = ref(0)
+    const isLast = ref(false)
+
     const pageFunc = {
       menuControl : () => {
         document.querySelector("#mobile-nav").classList.toggle('on')
       },
       changePeriod: val => {
         selectPeriod.value = val
-        console.log(selectPeriod.value)
+
+        if (pageNumber.value !== 0) {
+          pageNumber.value = 0
+        }
+        const params = { page: pageNumber.value };
 
         // 기간 별 api 호출
-        $api(`api/race/${selectPeriod.value}`, {}, 'get', res => {
-          console.log(res)
+        $api(`api/race/${selectPeriod.value}`, {params}, 'get', res => {
+          raceList.value = res.response.content
+          res.response.last === true ? isLast.value = true : isLast.value = false
         }, err => {
-          console.log(err)
           $ui.alert({
             title: "네트워크 오류",
             content: "세션이 만료되었거나 없습니다. 다시 로그인 바랍니다."
@@ -85,6 +93,27 @@ export default {
           router.push("/")
         })
       },
+      pagingList: () => {
+        pageNumber.value = pageNumber.value + 1
+        const params = { page: pageNumber.value };
+
+        // 기간 별 api 호출
+        $api(`api/race/${selectPeriod.value}`, {params}, 'get', res => {
+          res.response.content.forEach( itm => {
+            raceList.value.push(itm)
+          })
+          res.response.last === true ? isLast.value = true : isLast.value = false
+        }, err => {
+          $ui.alert({
+            title: "네트워크 오류",
+            content: "세션이 만료되었거나 없습니다. 다시 로그인 바랍니다."
+          });
+          router.push("/")
+        })
+      },
+      routerPage: path => {
+        router.push(path)
+      }
     }
 
     onMounted(() => {
@@ -93,6 +122,8 @@ export default {
 
     return{
       selectPeriod,
+      raceList,
+      isLast,
       pageFunc,
     }
   }
