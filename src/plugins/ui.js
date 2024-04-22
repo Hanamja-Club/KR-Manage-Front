@@ -16,7 +16,7 @@ export default {
                                             </div>
                                         </div>
                                     </div>`
-                document.querySelector("#main_article").append(modalDiv)
+                document.querySelector("body").append(modalDiv)
 
                 document.querySelector(".modal").style.display = "flex";
 

@@ -19,6 +19,7 @@
 <script>
 import {krmanage} from "@/plugins/krmanage.js";
 import {ref} from "vue";
+import {useRouter} from "vue-router";
 
 export default {
  name: 'KRA0101P01',
@@ -26,6 +27,7 @@ export default {
  setup() {
 
    const { $api, $ui, $utils } = krmanage()
+   const router = useRouter();
 
    const userInf = ref({
      userId: "",
@@ -49,9 +51,11 @@ export default {
          console.log(res)
          if (res.code === '001') {
            $ui.alert({
-             title : "로그인 오류",
-             content : res.message
-           })
+             title: "로그인 오류",
+             content: res.message
+           });
+         } else {
+            router.push("/RaceNum")
          }
        }, err => {
          console.log(err)
@@ -67,4 +71,6 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style>
+
+</style>
