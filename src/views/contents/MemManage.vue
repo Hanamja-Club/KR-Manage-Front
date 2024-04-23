@@ -1,20 +1,5 @@
 <template>
-  <header>
-    <h1 id="app-title">회원 관리</h1>
-    <button id="menuOpen" @click="pageFunc.menuControl()"><img src="@/assets/img/menu-button.png" alt="this is menu button. click to see other menus."></button>
-    <nav id="mobile-nav">
-      <ul>
-        <li><a href="#">KartRider Rush+ Management</a></li>
-        <li><a href="#" id="member-management">> 회원 관리</a></li>
-        <li><a href="#" id="friendly-match">> 친선경기 횟수 조회</a></li>
-        <li><a href="#" id="add-new-member">> 신규 팀원 추가</a></li>
-        <li>
-          <img id="menuClose" @click="pageFunc.menuControl()" src="@/assets/img/menu_close.png" alt="this is menu close button. click to close the menu.">
-        </li>
-      </ul>
-    </nav>
-  </header>
-
+  <CommonHeader :title="'회원 관리'" />
   <section id="content">
     <select id="menu">
       <option value="none">메뉴를 선택하세요</option>
@@ -94,10 +79,11 @@
 </template>
 <script>
 import {krmanage} from "@/plugins/krmanage.js";
+import CommonHeader from "@/components/CommonHeader.vue";
 
 export default {
   name: 'MemManage',
-  components: {},
+  components: {CommonHeader},
   setup() {
 
     const { $api, $ui, $utils } = krmanage()
