@@ -1,85 +1,35 @@
 <template>
   <CommonHeader :title="'회원 관리'" />
   <section id="content">
-    <select id="menu">
-      <option value="none">메뉴를 선택하세요</option>
-      <option value="john-doe">John Doe</option>
-      <option value="jane-smith">Jane Smith</option>
+    <select id="menu" @change="pageFunc.selectMemberBySeq($event.target.value)">
+      <option value="none">회원을 선택하세요</option>
+      <option v-for="(itm, idx) in memberList" :key="idx" :value="itm.seq">{{ itm.nickname }}</option>
     </select>
 
     <div id="info">
       <div>
         <h2 id="name">이름:</h2>
-        <p id="name-info"></p>
+        <p id="name-info">{{ selectedMember.nickname }}</p>
       </div>
       <div>
         <h2 id="nickname">닉네임:</h2>
-        <p id="nickname-info"></p>
+        <p id="nickname-info">{{ selectedMember.nickname }}</p>
       </div>
       <div>
-        <h2 id="club">클럽:</h2>
-        <p id="club-info"></p>
+        <h2 id="club">소속:</h2>
+        <p id="club-info">{{ selectedMember.groupName }}</p>
       </div>
       <div>
-        <h2 id="crew">크루:</h2>
-        <p id="crew-info"></p>
-      </div>
-      <div>
-        <h2 id="rank-tier">랭킹전 티어:</h2>
-        <p id="rank-tier-info"></p>
+        <h2 id="rank-tier">스피드 군:</h2>
+        <p id="rank-tier-info">{{ selectedMember.kartTierKo }}</p>
       </div>
     </div>
   </section>
-
-  <!-- 임시데이터 -->
-  <table>
-    <tr>
-      <th>이름</th>
-      <td>John Doe</td>
-    </tr>
-    <tr>
-      <th>닉네임</th>
-      <td>JD</td>
-    </tr>
-    <tr>
-      <th>클럽</th>
-      <td>Speedsters</td>
-    </tr>
-    <tr>
-      <th>크루</th>
-      <td>Nitro Team</td>
-    </tr>
-    <tr>
-      <th>랭킹전 티어</th>
-      <td>Diamond</td>
-    </tr>
-  </table>
-  <table>
-    <tr>
-      <th>이름</th>
-      <td>Jane Smith</td>
-    </tr>
-    <tr>
-      <th>닉네임</th>
-      <td>JS</td>
-    </tr>
-    <tr>
-      <th>클럽</th>
-      <td>Race Kings</td>
-    </tr>
-    <tr>
-      <th>크루</th>
-      <td>Turbo Crew</td>
-    </tr>
-    <tr>
-      <th>랭킹전 티어</th>
-      <td>Gold</td>
-    </tr>
-  </table>
 </template>
 <script>
 import {krmanage} from "@/plugins/krmanage.js";
 import CommonHeader from "@/components/CommonHeader.vue";
+import {onMounted, ref} from "vue";
 
 export default {
   name: 'MemManage',
@@ -88,13 +38,38 @@ export default {
 
     const { $api, $ui, $utils } = krmanage()
 
+    const memberList = ref([])
+    const selectedMember = ref({})
+
     const pageFunc = {
       menuControl : () => {
         document.querySelector("#mobile-nav").classList.toggle('on')
       },
+      initMembers: () => {
+        $api('api/groupmember', {}, 'get', res => {
+          if (res.code === '000') {
+            memberList.value = res.response
+          }
+        }, err => {
+          console.log(err)
+        })
+      },
+      selectMemberBySeq: seq => {
+        if (seq != "none") {
+          selectedMember.value = memberList.value.filter(itm => itm.seq == seq)[0];
+        } else {
+          selectedMember.value = {}
+        }
+      }
     }
 
+    onMounted(() => {
+      pageFunc.initMembers();
+    })
+
     return{
+      memberList,
+      selectedMember,
       pageFunc,
     }
   }
