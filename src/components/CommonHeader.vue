@@ -8,7 +8,7 @@
       <ul>
         <li><a>KartRider Rush+ Management</a></li>
         <li><a @click="pageFunc.routerPage('/manage')" id="member-management"> 회원 관리</a></li>
-        <li><a id="add-new-member"> 신규 팀원 추가</a></li>
+        <li><a @click="pageFunc.routerPage('/NewMember')" id="add-new-member"> 신규 팀원 추가</a></li>
         <li><a @click="pageFunc.routerPage('/RaceNum')" id="friendly-match"> 친선경기 횟수 조회</a></li>
         <li><a id="add-race-number"> 경기 횟수 추가</a></li>
         <li @click="pageFunc.menuControl()">

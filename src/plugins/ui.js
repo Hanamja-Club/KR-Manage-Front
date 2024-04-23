@@ -17,13 +17,16 @@ export default {
                                         </div>
                                     </div>`
                 document.querySelector("body").append(modalDiv)
-
                 document.querySelector(".modal").style.display = "flex";
 
                 const modalCloseButton = document.querySelector(".modal-close");
                 modalCloseButton.addEventListener("click", function() {
                     document.querySelector(".modal").style.display = "none";
                     document.querySelector(".modal_div").remove()
+
+                    if (val.callbackFunc) { // callback함수가 있을 때 실행
+                        val.callbackFunc()
+                    }
                 });
             }
         }

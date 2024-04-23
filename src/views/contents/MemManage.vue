@@ -30,6 +30,7 @@
 import {krmanage} from "@/plugins/krmanage.js";
 import CommonHeader from "@/components/CommonHeader.vue";
 import {onMounted, ref} from "vue";
+import {useRouter} from "vue-router";
 
 export default {
   name: 'MemManage',
@@ -37,6 +38,7 @@ export default {
   setup() {
 
     const { $api, $ui, $utils } = krmanage()
+    const router = useRouter();
 
     const memberList = ref([])
     const selectedMember = ref({})
@@ -51,7 +53,11 @@ export default {
             memberList.value = res.response
           }
         }, err => {
-          console.log(err)
+          $ui.alert({
+            title: "네트워크 오류",
+            content: "세션이 만료되었거나 없습니다. 다시 로그인 바랍니다."
+          });
+          router.push("/")
         })
       },
       selectMemberBySeq: seq => {

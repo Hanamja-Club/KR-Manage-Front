@@ -2,6 +2,7 @@ import {createRouter, createWebHistory} from "vue-router";
 import KRA0101P01 from "@/views/KRA/KRA0101P01.vue";
 import MemManage from "@/views/contents/MemManage.vue";
 import RaceNum from "@/views/contents/RaceNum.vue";
+import NewMember from "@/views/contents/NewMember.vue";
 
 const routes = [
     {
@@ -15,6 +16,10 @@ const routes = [
     {
         path: '/RaceNum',
         component: RaceNum
+    },
+    {
+        path: '/NewMember',
+        component: NewMember
     },
 ]
 
