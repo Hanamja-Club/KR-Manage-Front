@@ -20,6 +20,7 @@
 import {krmanage} from "@/plugins/krmanage.js";
 import {ref} from "vue";
 import {useRouter} from "vue-router";
+import {useStore} from "vuex";
 
 export default {
  name: 'KRA0101P01',
@@ -28,6 +29,7 @@ export default {
 
    const { $api, $ui, $utils } = krmanage()
    const router = useRouter();
+   const store = useStore();
 
    const userInf = ref({
      userId: "",
@@ -55,7 +57,8 @@ export default {
              content: res.message
            });
          } else {
-            router.push("/RaceNum")
+           store.commit('setMemberInfo', res.response)
+           router.push("/RaceNum")
          }
        }, err => {
          console.log(err)

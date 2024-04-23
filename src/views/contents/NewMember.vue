@@ -24,7 +24,8 @@
 import CommonHeader from "@/components/CommonHeader.vue";
 import {krmanage} from "@/plugins/krmanage.js";
 import {useRouter} from "vue-router";
-import {ref, watch} from "vue";
+import {onMounted, ref, watch} from "vue";
+import {useStore} from "vuex";
 
 export default {
   name: 'NewMember',
@@ -33,6 +34,9 @@ export default {
 
     const { $api, $ui, $utils } = krmanage()
     const router = useRouter();
+    const store = useStore();
+
+    const adminInfo = ref({})
 
     const checkedNickName = ref('')
     const isValid = ref(false)
@@ -55,6 +59,10 @@ export default {
 
     watch(checkedNickName, () => {
       !$utils.isEmpty(checkedNickName.value) ? isValid.value = true : isValid.value = false
+    })
+
+    onMounted(() => {
+      adminInfo.value = store.getters['getMemberInfo']
     })
 
     return {
