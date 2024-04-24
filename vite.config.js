@@ -15,7 +15,7 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/api': import.meta.env.VITE_BASE_URL
+      '/api': 'http://localhost:8080'
     }
   }
 })
