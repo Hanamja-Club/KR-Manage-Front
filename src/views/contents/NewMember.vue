@@ -78,6 +78,16 @@ export default {
               kartTier: goon.value
             }, 'post', res => {
               console.log(res)
+              if (res.code === '000') {
+                $ui.alert({
+                  title: "성공",
+                  content: res.message
+                });
+                document.querySelector("#write").value = ''
+                checkedNickName.value = ''
+                document.querySelector("#menu").value = 'none'
+                goon.value = ''
+              }
             }, err => {
               $ui.alert({
                 title: "네트워크 오류",
