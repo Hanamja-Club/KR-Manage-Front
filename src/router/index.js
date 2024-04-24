@@ -3,6 +3,7 @@ import KRA0101P01 from "@/views/KRA/KRA0101P01.vue";
 import MemManage from "@/views/contents/MemManage.vue";
 import RaceNum from "@/views/contents/RaceNum.vue";
 import NewMember from "@/views/contents/NewMember.vue";
+import AddNewRace from "@/views/contents/AddNewRace.vue";
 
 const routes = [
     {
@@ -20,6 +21,10 @@ const routes = [
     {
         path: '/NewMember',
         component: NewMember
+    },
+    {
+        path: '/AddNewRace',
+        component: AddNewRace
     },
 ]
 

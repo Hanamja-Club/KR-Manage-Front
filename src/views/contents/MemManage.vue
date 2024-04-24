@@ -25,6 +25,10 @@
       </div>
     </div>
   </section>
+  <div class="buttons">
+    <button id="editMem">회원정보 수정</button>
+    <button id="deleteMem">회원 삭제</button>
+  </div>
 </template>
 <script>
 import {krmanage} from "@/plugins/krmanage.js";
