@@ -68,6 +68,7 @@ export default {
 
         // 기간 별 api 호출
         $api(`api/race/${selectPeriod.value}`, {params}, 'get', res => {
+          console.log(res.response.content)
           raceList.value = res.response.content
           res.response.last === true ? isLast.value = true : isLast.value = false
         }, err => {
