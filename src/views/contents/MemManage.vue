@@ -26,14 +26,14 @@
     </div>
   </section>
   <div class="buttons">
-    <button id="editMem">회원정보 수정</button>
-    <button id="deleteMem">회원 삭제</button>
+    <button id="editMem" v-if="isSelectedMember">회원정보 수정</button>
+    <button id="deleteMem" v-if="isSelectedMember">회원 삭제</button>
   </div>
 </template>
 <script>
 import {krmanage} from "@/plugins/krmanage.js";
 import CommonHeader from "@/components/CommonHeader.vue";
-import {onMounted, ref} from "vue";
+import {onMounted, ref, watch} from "vue";
 import {useRouter} from "vue-router";
 
 export default {
@@ -46,6 +46,8 @@ export default {
 
     const memberList = ref([])
     const selectedMember = ref({})
+
+    const isSelectedMember = ref(false)
 
     const pageFunc = {
       menuControl : () => {
@@ -73,6 +75,10 @@ export default {
       }
     }
 
+    watch(selectedMember, () => {
+      $utils.isEmpty(selectedMember.value) ? isSelectedMember.value = false : isSelectedMember.value = true
+    })
+
     onMounted(() => {
       pageFunc.initMembers();
     })
@@ -80,6 +86,7 @@ export default {
     return{
       memberList,
       selectedMember,
+      isSelectedMember,
       pageFunc,
     }
   }
