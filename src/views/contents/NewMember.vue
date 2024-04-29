@@ -77,7 +77,7 @@ export default {
               nickname: checkedNickName.value,
               kartTier: goon.value
             }, 'post', res => {
-              console.log(res)
+              // console.log(res)
               if (res.code === '000') {
                 $ui.alert({
                   title: "성공",

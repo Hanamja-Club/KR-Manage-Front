@@ -99,7 +99,7 @@ export default {
           return false
         }
         $api(`api/groupmember/${selectedMember.value.seq}`, selectedMember.value , 'post', res => {
-          console.log(res)
+          // console.log(res)
           if (res.code === '000') {
             $ui.alert({
               title: "성공",
@@ -122,7 +122,7 @@ export default {
       },
       deleteMember: () => {
         $api(`api/groupmember/${selectedMember.value.seq}`, {}, 'delete', res => {
-          console.log(res)
+          // console.log(res)
           if (res.code === '000') {
             $ui.alert({
               title: "성공",

@@ -50,7 +50,7 @@ export default {
          memberId : userInf.value.userId,
          memberPassword: userInf.value.userPw
        }, 'post', res => {
-         console.log(res)
+         // console.log(res)
          if (res.code === '001') {
            $ui.alert({
              title: "로그인 오류",
