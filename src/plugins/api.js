@@ -1,7 +1,7 @@
 import axios from "axios";
 
 let config = {
-    // baseURL: import.meta.env.VITE_BASE_URL,
+    baseURL: import.meta.env.VITE_BASE_URL,
     timeout: 60 * 1000,
     withCredentials : true
 }

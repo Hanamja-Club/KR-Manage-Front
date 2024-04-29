@@ -26,7 +26,7 @@
         <h2 id="rank-tier">스피드 군:</h2>
 <!--        <p id="rank-tier-info">{{ selectedMember.kartTierKo }}</p>-->
 <!--        <input type="text" id="rank-tier-info" :value="selectedMember.kartTierKo" />-->
-        <select id="menu" class="goon" @input="selectedMember.kartTierKo = $event.target.value">
+        <select id="menu" class="goon" @change="selectedMember.kartTier = $event.target.value">
           <option value="">군을 입력해주세요</option>
           <option value="V_STRONG">강주력</option>
           <option value="STRONG">주력</option>
