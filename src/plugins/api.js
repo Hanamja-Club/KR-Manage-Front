@@ -50,6 +50,15 @@ export default {
                         failCallback(error)
                     }
                 })
+            } else if(method == 'delete') {
+                _axios
+                    .delete(`/${serviceId}`, params).then((response) => {
+                    successCallback(response.data)
+                }).catch((error) => {
+                    if(failCallback != null && typeof failCallback === 'function') {
+                        failCallback(error)
+                    }
+                })
             }
         }
         app.config.globalProperties.$api = api
