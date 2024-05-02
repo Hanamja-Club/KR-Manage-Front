@@ -4,6 +4,7 @@ import MemManage from "@/views/contents/MemManage.vue";
 import RaceNum from "@/views/contents/RaceNum.vue";
 import NewMember from "@/views/contents/NewMember.vue";
 import AddNewRace from "@/views/contents/AddNewRace.vue";
+import AdminMain from "@/views/admin/AdminMain.vue";
 
 const routes = [
     {
@@ -25,6 +26,10 @@ const routes = [
     {
         path: '/AddNewRace',
         component: AddNewRace
+    },
+    {
+        path: '/AdminMain',
+        component: AdminMain
     },
 ]
 
