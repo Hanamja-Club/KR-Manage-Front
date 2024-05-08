@@ -4,8 +4,23 @@
     <section id="content">
       <h1 style="font-size: 20pt">그룹</h1>
       <select id="menu">
+        <option value="">모든 그룹</option>
         <option v-for="(itm, idx) in groupList" :key="idx" :value="itm.groupSeq">{{ itm.groupName }}</option>
       </select>
+      <button id="addNew">그룹 삭제</button>
+      <hr style="margin-bottom: 35px; margin-top: 35px;">
+
+      <h1 style="font-size: 20pt">그룹 추가 (클럽, 크루)</h1>
+      <select id="menu" style="margin-bottom: 35px;">
+        <option value="">그룹 구분</option>
+        <option value="club">클럽</option>
+        <option value="crew">크루</option>
+      </select>
+      <div id="typeNick">
+        <input type="text" id="write" placeholder="추가할 그룹명" />
+      </div>
+      <button id="addNew">그룹 추가</button>
+      <hr style="margin-bottom: 35px; margin-top: 35px;">
     </section>
   </body>
 </template>

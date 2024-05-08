@@ -11,6 +11,7 @@
         <li><a @click="pageFunc.routerPage('/NewMember')" id="add-new-member"> 신규 팀원 추가</a></li>
         <li><a @click="pageFunc.routerPage('/RaceNum')" id="friendly-match"> 친선경기 횟수 조회</a></li>
         <li><a @click="pageFunc.routerPage('/AddNewRace')" id="add-race-number"> 경기 횟수 추가</a></li>
+        <li v-if="adminInfo.memberAuthority === 'SUPER'"><a @click="pageFunc.routerPage('/AdminMain')" id="add-race-number"> 관리자 설정</a></li>
         <li @click="pageFunc.menuControl()">
           <img id="menuClose" src="@/assets/img/menu_close.png"
                alt="this is menu close button. click to close the menu.">
