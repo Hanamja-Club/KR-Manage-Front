@@ -11,15 +11,15 @@
       <hr style="margin-bottom: 35px; margin-top: 35px;">
 
       <h1 style="font-size: 20pt">그룹 추가 (클럽, 크루)</h1>
-      <select id="menu" style="margin-bottom: 35px;">
+      <select id="menu" style="margin-bottom: 35px;" @change="addGroup.groupType = $event.target.value">
         <option value="">그룹 구분</option>
         <option value="club">클럽</option>
         <option value="crew">크루</option>
       </select>
       <div id="typeNick">
-        <input type="text" id="write" placeholder="추가할 그룹명" />
+        <input type="text" id="write" placeholder="추가할 그룹명" @change="addGroup.groupName = $event.target.value" />
       </div>
-      <button id="addNew">그룹 추가</button>
+      <button id="addNew" @click="pageFunc.saveGroup()">그룹 추가</button>
       <hr style="margin-bottom: 35px; margin-top: 35px;">
     </section>
   </body>
@@ -78,6 +78,7 @@ export default {
               content: res.message
             });
             pageFunc.getAllGroups()
+            document.querySelector("#menu").value = ""
           }
         }, err => {
           $ui.alert({
@@ -86,7 +87,33 @@ export default {
           });
           router.push("/")
         })
-      }
+      },
+      saveGroup: () => {
+        $api('api/admin/group', addGroup.value, 'post', res => {
+          if ($utils.isEmpty(addGroup.value.groupName) || $utils.isEmpty(addGroup.value.groupType)) {
+            $ui.alert({
+              title: "실패",
+              content: "그룹 저장 필수 값이 누락되었습니다."
+            });
+            return false
+          }
+          if (res.code === "000") {
+            $ui.alert({
+              title: "성공",
+              content: res.message
+            });
+            pageFunc.getAllGroups()
+            document.querySelector("#menu").value = ""
+            document.querySelector("#write").value = ""
+          }
+        }, err => {
+          $ui.alert({
+            title: "네트워크 오류",
+            content: "권한이 없거나 세션이 없습니다. 다시 로그인 해주세요."
+          });
+          router.push("/")
+        })
+      },
     }
 
     onMounted(() => {
