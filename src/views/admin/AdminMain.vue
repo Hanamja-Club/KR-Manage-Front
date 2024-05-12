@@ -7,7 +7,11 @@
         <option value="">모든 그룹</option>
         <option v-for="(itm, idx) in groupList" :key="idx" :value="itm.groupSeq">{{ itm.groupName }}</option>
       </select>
-      <button id="addNew" @click="pageFunc.deleteGroup()">그룹 삭제</button>
+      <div id="typeNick">
+        <input type="text" id="write" placeholder="선택한 그룹명" :value="pageFunc.selectUpdateGroup()" @input="targetGroupName = $event.target.value" />
+      </div>
+      <button id="addNew" @click="pageFunc.deleteGroup()">그룹 삭제</button> <br>
+      <button id="addNew" @click="pageFunc.updateGroupName">그룹명 변경</button>
       <hr style="margin-bottom: 35px; margin-top: 35px;">
 
       <h1 style="font-size: 20pt">그룹 추가 (클럽, 크루)</h1>
@@ -29,7 +33,7 @@
 import {krmanage} from "@/plugins/krmanage.js";
 import {useRouter} from "vue-router";
 import {useStore} from "vuex";
-import {onMounted, ref} from "vue";
+import {onMounted, ref, watch} from "vue";
 
 export default {
   name: 'AdminMain',
@@ -42,12 +46,14 @@ export default {
 
     const groupList = ref([])
 
-    const selectedGroupSeq = ref(0)
+    const selectedGroupSeq = ref({})
 
     const addGroup = ref({
       groupName: "",
       groupType: "",
     })
+
+    const targetGroupName = ref("")
 
     const pageFunc = {
       getAllGroups: () => {
@@ -114,16 +120,42 @@ export default {
           router.push("/")
         })
       },
+      selectUpdateGroup: () => {
+        return groupList.value.find(itm => itm.groupSeq == selectedGroupSeq.value)?.groupName
+      },
+      updateGroupName: () => {
+        if ($utils.isEmpty(selectedGroupSeq.value)) {
+          $ui.alert({
+            title: "실패",
+            content: "그룹을 선택해주세요."
+          });
+          return false
+        }
+        console.log(targetGroupName.value)
+
+        $api(`api/admin/group/${selectedGroupSeq.value}`, {
+          groupName: targetGroupName.value
+        }, 'patch', res => {
+          console.log(res)
+        }, err => {
+          console.log(err);
+        })
+      },
     }
 
     onMounted(() => {
       pageFunc.getAllGroups()
     })
 
+    watch(selectedGroupSeq, () => {
+      targetGroupName.value = pageFunc.selectUpdateGroup()
+    })
+
     return{
       groupList,
       selectedGroupSeq,
       addGroup,
+      targetGroupName,
       pageFunc,
     }
   }

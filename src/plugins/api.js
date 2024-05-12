@@ -59,6 +59,15 @@ export default {
                         failCallback(error)
                     }
                 })
+            } else if(method == 'patch') {
+                _axios
+                    .patch(`/${serviceId}`, params).then((response) => {
+                    successCallback(response.data)
+                }).catch((error) => {
+                    if(failCallback != null && typeof failCallback === 'function') {
+                        failCallback(error)
+                    }
+                })
             }
         }
         app.config.globalProperties.$api = api
