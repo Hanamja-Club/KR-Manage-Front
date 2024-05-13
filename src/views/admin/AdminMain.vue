@@ -137,6 +137,15 @@ export default {
           groupName: targetGroupName.value
         }, 'patch', res => {
           console.log(res)
+          if (res.code === "000") {
+            $ui.alert({
+              title: "성공",
+              content: res.message
+            });
+            pageFunc.getAllGroups()
+            document.querySelector("#menu").value = ""
+            document.querySelector("#write").value = ""
+          }
         }, err => {
           console.log(err);
         })
