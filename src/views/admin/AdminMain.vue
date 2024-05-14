@@ -27,14 +27,14 @@
       <hr style="margin-bottom: 35px; margin-top: 35px;">
 
       <h1 style="font-size: 20pt">그룹 운영진 추가</h1>
-      <select id="menu">
+      <select id="menu" @change="addManagerInfo.groupSeq = $event.target.value">
         <option value="">모든 그룹</option>
         <option v-for="(itm, idx) in groupList" :key="idx" :value="itm.groupSeq">{{ itm.groupName }}</option>
       </select>
       <div id="typeNick">
-        <input type="text" id="write" placeholder="운영진 명" />
+        <input type="text" id="write" placeholder="운영진 명" @input="addManagerInfo.memberName = $event.target.value" />
       </div>
-      <button id="addNew">운영진 추가</button>
+      <button id="addNew" @click="pageFunc.saveGroupManager">운영진 추가</button>
       <hr style="margin-bottom: 35px; margin-top: 35px;">
 
     </section>
@@ -66,6 +66,11 @@ export default {
     })
 
     const targetGroupName = ref("")
+
+    const addManagerInfo = ref({
+      groupSeq: 0,
+      memberName: ""
+    })
 
     const pageFunc = {
       getAllGroups: () => {
@@ -162,6 +167,10 @@ export default {
           console.log(err);
         })
       },
+      saveGroupManager: () => {
+        // console.log(addManagerInfo.value)
+
+      }
     }
 
     onMounted(() => {
@@ -177,6 +186,7 @@ export default {
       selectedGroupSeq,
       addGroup,
       targetGroupName,
+      addManagerInfo,
       pageFunc,
     }
   }
