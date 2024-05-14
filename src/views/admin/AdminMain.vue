@@ -25,6 +25,18 @@
       </div>
       <button id="addNew" @click="pageFunc.saveGroup()">그룹 추가</button>
       <hr style="margin-bottom: 35px; margin-top: 35px;">
+
+      <h1 style="font-size: 20pt">그룹 운영진 추가</h1>
+      <select id="menu">
+        <option value="">모든 그룹</option>
+        <option v-for="(itm, idx) in groupList" :key="idx" :value="itm.groupSeq">{{ itm.groupName }}</option>
+      </select>
+      <div id="typeNick">
+        <input type="text" id="write" placeholder="운영진 명" />
+      </div>
+      <button id="addNew">운영진 추가</button>
+      <hr style="margin-bottom: 35px; margin-top: 35px;">
+
     </section>
   </body>
 </template>
