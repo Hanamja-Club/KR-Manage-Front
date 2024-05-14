@@ -32,7 +32,9 @@
         <option v-for="(itm, idx) in groupList" :key="idx" :value="itm.groupSeq">{{ itm.groupName }}</option>
       </select>
       <div id="typeNick">
-        <input type="text" id="write" placeholder="운영진 명" @input="addManagerInfo.memberName = $event.target.value" />
+        <input type="text" id="write" placeholder="운영진 아이디" @input="addManagerInfo.memberId = $event.target.value" style="margin-bottom: 20px" />
+        <input type="text" id="write" placeholder="운영진 닉네임" @input="addManagerInfo.memberName = $event.target.value" style="margin-bottom: 20px"/>
+        <input type="password" id="write" placeholder="운영진 비밀번호" @input="addManagerInfo.memberPassword = $event.target.value" />
       </div>
       <button id="addNew" @click="pageFunc.saveGroupManager">운영진 추가</button>
       <hr style="margin-bottom: 35px; margin-top: 35px;">
@@ -69,7 +71,9 @@ export default {
 
     const addManagerInfo = ref({
       groupSeq: 0,
-      memberName: ""
+      memberId: "",
+      memberName: "",
+      memberPassword: "",
     })
 
     const pageFunc = {
@@ -164,12 +168,35 @@ export default {
             document.querySelector("#write").value = ""
           }
         }, err => {
-          console.log(err);
+          $ui.alert({
+            title: "네트워크 오류",
+            content: "권한이 없거나 세션이 없습니다. 다시 로그인 해주세요."
+          });
+          router.push("/")
         })
       },
       saveGroupManager: () => {
         // console.log(addManagerInfo.value)
-
+        if ($utils.isEmpty(addManagerInfo.value.memberName) ||
+            addManagerInfo.value.groupSeq === 0 ||
+            $utils.isEmpty(addManagerInfo.value.memberId) ||
+            $utils.isEmpty(addManagerInfo.value.memberPassword)
+        ) {
+          $ui.alert({
+            title: "실패",
+            content: "필수 입력정보가 누락되었습니다. 다시 한번 확인해주세요."
+          });
+          return false;
+        }
+        $api('api/admin/member', addManagerInfo.value, 'post', res => {
+          console.log(res)
+        }, err => {
+          $ui.alert({
+            title: "네트워크 오류",
+            content: "권한이 없거나 세션이 없습니다. 다시 로그인 해주세요."
+          });
+          router.push("/")
+        })
       }
     }
 
