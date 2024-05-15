@@ -38,7 +38,8 @@
       </div>
       <button id="addNew" @click="pageFunc.saveGroupManager">운영진 추가</button>
       <hr style="margin-bottom: 35px; margin-top: 35px;">
-
+      <h1 style="font-size: 20pt">그룹 운영진 컨트롤</h1>
+      <button id="addNew" @click="pageFunc.movePage('/ManagerControl')">페이지 이동</button>
     </section>
   </body>
 </template>
@@ -197,6 +198,9 @@ export default {
           });
           router.push("/")
         })
+      },
+      movePage: pageName => {
+        router.push(pageName)
       }
     }
 

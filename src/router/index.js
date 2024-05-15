@@ -5,6 +5,7 @@ import RaceNum from "@/views/contents/RaceNum.vue";
 import NewMember from "@/views/contents/NewMember.vue";
 import AddNewRace from "@/views/contents/AddNewRace.vue";
 import AdminMain from "@/views/admin/AdminMain.vue";
+import ManagerControl from "@/views/admin/ManagerControl.vue";
 
 const routes = [
     {
@@ -30,6 +31,10 @@ const routes = [
     {
         path: '/AdminMain',
         component: AdminMain
+    },
+    {
+        path: '/ManagerControl',
+        component: ManagerControl
     },
 ]
 
