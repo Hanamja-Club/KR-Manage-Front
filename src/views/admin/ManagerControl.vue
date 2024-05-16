@@ -3,6 +3,26 @@
     <hr style="height: 5px; background-color: #007bff; margin-bottom: 15px">
     <section id="content">
       <h1 style="font-size: 20pt">운영진 control</h1>
+      <table>
+        <thead>
+        <tr>
+          <th>선택</th>
+          <th>닉네임</th>
+          <th>소속</th>
+          <th>권한</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="(itm, idx) in managerList" :key="idx">
+          <td>
+            <input type="checkbox" :id="'chkbox' + itm.memberSeq" />
+          </td>
+          <td>{{ itm.memberName }}</td>
+          <td>{{ itm.groupName }}</td>
+          <td>{{ itm.memberAuthorityKo }}</td>
+        </tr>
+        </tbody>
+      </table>
     </section>
   </body>
 </template>
@@ -26,13 +46,15 @@ export default {
       searchKeyword: "",
     })
 
+    const managerList = ref([])
+
     const pageFunc = {
       movePage: pageName => {
         router.push(pageName)
       },
       getMembers: () => {
         $api('api/admin/members', memberSearchInfo.value, 'post', res => {
-          console.log(res)
+          managerList.value = res.response
         }, err => {
           $ui.alert({
             title: "네트워크 오류",
@@ -48,6 +70,7 @@ export default {
     })
 
     return{
+      managerList,
       pageFunc,
     }
   }
