@@ -4,8 +4,8 @@
     <section id="content">
       <h1 style="font-size: 20pt">전체 조회</h1>
       <div id="selectors">
-        <input type="text" id="searchTerm" placeholder="닉네임을 입력하세요" />
-        <button id="search" @click="pageFunc.searchByKeyword()">검색</button>
+        <input type="text" id="searchTerm" placeholder="닉네임을 입력하세요" @input="memberSearchInfo.searchKeyword = $event.target.value" />
+        <button id="search" @click="pageFunc.getMembers()">검색</button>
       </div>
       <table>
         <thead>
@@ -74,6 +74,7 @@ export default {
     })
 
     return{
+      memberSearchInfo,
       managerList,
       pageFunc,
     }
