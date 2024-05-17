@@ -79,7 +79,25 @@ export default {
         }
       },
       checkedMemberDelete: () => {
-
+        $api(`api/admin/manager`, {
+          targetMembers: checkedMemberList.value
+        }, 'post', res => {
+          console.log(res)
+          if (res.code === "000") {
+            $ui.alert({
+              title: "성공",
+              content: res.message
+            });
+            pageFunc.getMembers()
+            checkedMemberList.value = []
+          }
+        }, err => {
+          $ui.alert({
+            title: "네트워크 오류",
+            content: "권한이 없거나 세션이 없습니다. 다시 로그인 해주세요."
+          });
+          router.push("/")
+        })
       },
     }
 
