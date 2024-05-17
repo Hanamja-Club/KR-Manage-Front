@@ -19,7 +19,7 @@
         <tbody>
         <tr v-for="(itm, idx) in managerList" :key="idx">
           <td>
-            <input type="checkbox" :id="'chkbox' + itm.memberSeq" />
+            <input type="checkbox" :id="'chkbox' + itm.memberSeq" @change="pageFunc.onChangeChkMem(itm)" />
           </td>
           <td>{{ itm.memberName }}</td>
           <td>{{ itm.groupName }}</td>
@@ -27,6 +27,7 @@
         </tr>
         </tbody>
       </table>
+      <button id="addNew" @click="pageFunc.checkedMemberDelete()" v-if="!$utils.isEmpty(checkedMemberList)">운영진 삭제</button>
     </section>
   </body>
 </template>
@@ -52,6 +53,8 @@ export default {
 
     const managerList = ref([])
 
+    const checkedMemberList = ref([])
+
     const pageFunc = {
       movePage: pageName => {
         router.push(pageName)
@@ -66,7 +69,18 @@ export default {
           });
           router.push("/")
         })
-      }
+      },
+      onChangeChkMem: member => {
+        if ($utils.isEmpty(checkedMemberList.value.find(itm => itm.memberSeq === member.memberSeq))) {
+          checkedMemberList.value.push(member);
+        } else {
+          let findIndex = checkedMemberList.value.findIndex(itm => itm.memberSeq === member.memberSeq);
+          checkedMemberList.value.splice(findIndex, 1)
+        }
+      },
+      checkedMemberDelete: () => {
+
+      },
     }
 
     onMounted(() => {
@@ -76,6 +90,7 @@ export default {
     return{
       memberSearchInfo,
       managerList,
+      checkedMemberList,
       pageFunc,
     }
   }
