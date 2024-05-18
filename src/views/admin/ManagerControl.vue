@@ -19,7 +19,7 @@
         <tbody>
         <tr v-for="(itm, idx) in managerList" :key="idx">
           <td>
-            <input type="checkbox" :id="'chkbox' + itm.memberSeq" @change="pageFunc.onChangeChkMem(itm)" />
+            <input type="checkbox" :id="'chkbox' + itm.memberSeq" @change="pageFunc.onChangeChkMem(itm)" :disabled="itm.memberAuthority === 'SUPER'" />
           </td>
           <td>{{ itm.memberName }}</td>
           <td>{{ itm.groupName }}</td>
