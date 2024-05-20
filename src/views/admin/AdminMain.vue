@@ -37,9 +37,10 @@
         <input type="password" id="write" placeholder="운영진 비밀번호" @input="addManagerInfo.memberPassword = $event.target.value" />
       </div>
       <button id="addNew" @click="pageFunc.saveGroupManager">운영진 추가</button>
+
       <hr style="margin-bottom: 35px; margin-top: 35px;">
-      <h1 style="font-size: 20pt">그룹 운영진 컨트롤</h1>
-      <button id="addNew" @click="pageFunc.movePage('/ManagerControl')">페이지 이동</button>
+      <button id="addNew" @click="pageFunc.movePage('/ManagerControl')" style="margin-bottom: 10px">그룹 운영진 컨트롤</button>
+      <button id="addNew" @click="pageFunc.movePage('/AppStatistics')" style="margin-bottom: 10px">통계 페이지 이동</button>
     </section>
   </body>
 </template>

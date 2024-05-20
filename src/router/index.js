@@ -6,6 +6,7 @@ import NewMember from "@/views/contents/NewMember.vue";
 import AddNewRace from "@/views/contents/AddNewRace.vue";
 import AdminMain from "@/views/admin/AdminMain.vue";
 import ManagerControl from "@/views/admin/ManagerControl.vue";
+import AppStatistics from "@/views/admin/AppStatistics.vue";
 
 const routes = [
     {
@@ -35,6 +36,10 @@ const routes = [
     {
         path: '/ManagerControl',
         component: ManagerControl
+    },
+    {
+        path: '/AppStatistics',
+        component: AppStatistics
     },
 ]
 
