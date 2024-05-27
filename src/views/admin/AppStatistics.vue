@@ -3,7 +3,9 @@
     <hr style="height: 5px; background-color: #007bff; margin-bottom: 15px">
     <section id="content">
       <h1 style="font-size: 20pt">앱 통계</h1>
-      <CommonChart :chart-options="chartOptions" :chart-data="chartData" />
+      <div style="margin-top: 20px;">
+        <CommonChart :chart-options="chartOptions" :chart-data="chartData" />
+      </div>
     </section>
   </body>
 </template>
