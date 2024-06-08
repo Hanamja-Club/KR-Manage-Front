@@ -45,9 +45,22 @@ export default {
       movePage: pageName => {
         router.push(pageName)
       },
+      initApi: () => {
+        console.log("init func call")
+        $api('api/admin/statistics/groupmember/tier', {}, 'get', res => {
+          console.log(res)
+        }, err => {
+          $ui.alert({
+            title: "네트워크 오류",
+            content: "권한이 없거나 세션이 없습니다. 다시 로그인 해주세요."
+          });
+          router.push("/")
+        })
+      },
     }
 
     onMounted(() => {
+      pageFunc.initApi()
     })
 
     return{
