@@ -14,7 +14,7 @@
 import {krmanage} from "@/plugins/krmanage.js";
 import {useRouter} from "vue-router";
 import {useStore} from "vuex";
-import {onMounted} from "vue";
+import {onMounted, ref, watch} from "vue";
 import CommonChart from "@/components/CommonChart.vue";
 
 export default {
@@ -26,16 +26,16 @@ export default {
     const router = useRouter();
     const store = useStore();
 
-    const chartData = { // 임시 하드코딩이며 추후 수정 예정
-      labels: [ '강주력', '주력', '1군', '2군', '3군', '4군', '일반' ],
+    const chartData = ref({ // 임시 하드코딩이며 추후 수정 예정
+      labels: ['asdsdfsdf'],
       datasets: [
-          {
-            label: '회원 군 통계',
-            backgroundColor: '#f87979',
-            data: [40, 20, 12, 40, 20, 12, 30],
-          }
+        {
+          label: '회원 군 통계',
+          backgroundColor: '#f87979',
+          data: ['123'],
+        }
       ],
-    }
+    })
 
     const chartOptions = {
       responsive: true
@@ -48,7 +48,10 @@ export default {
       initApi: () => {
         console.log("init func call")
         $api('api/admin/statistics/groupmember/tier', {}, 'get', res => {
-          console.log(res)
+          res.response.forEach((itm, idx) => {
+            chartData.value.labels[idx] = itm.kartTier
+            chartData.value.datasets[0].data[idx] = itm.tierCount
+          })
         }, err => {
           $ui.alert({
             title: "네트워크 오류",
@@ -61,6 +64,10 @@ export default {
 
     onMounted(() => {
       pageFunc.initApi()
+    })
+
+    watch(chartData.value, ()=> {
+      console.log(chartData.value)
     })
 
     return{
